@@ -1,7 +1,5 @@
 package com.github.mateuszrasinski.microservices.udemy.randomsentencegenerator;
 
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -9,11 +7,9 @@ import org.springframework.web.client.RestTemplate;
 @RestController("/sentence")
 class SentenceController {
 
-    private final DiscoveryClient discoveryClient;
     private final RestTemplate restTemplate;
 
-    SentenceController(DiscoveryClient discoveryClient, RestTemplate restTemplate) {
-        this.discoveryClient = discoveryClient;
+    SentenceController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
@@ -25,12 +21,7 @@ class SentenceController {
                 getWord("random-object-generator"));
     }
 
-    private String getWord(String applicationName) {
-        return discoveryClient.getInstances(applicationName)
-                              .stream()
-                              .findAny()
-                              .map(ServiceInstance::getUri)
-                              .map(uri -> restTemplate.getForObject(uri.resolve("/word"), String.class))
-                              .orElse("");
+    private String getWord(String serviceId) {
+        return restTemplate.getForObject(String.format("http://%s/word", serviceId), String.class);
     }
 }
