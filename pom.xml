@@ -12,7 +12,7 @@
     <artifactId>random-sentence-generator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>random-sentence-generator</name>
-    <description>Random sentence gnerator for Microservices course</description>
+    <description>Random sentence generator for Microservices course</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
         <dependency>
