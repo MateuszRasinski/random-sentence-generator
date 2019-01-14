@@ -5,22 +5,22 @@ import org.springframework.stereotype.Service;
 @Service
 class SentenceGenerator {
 
-    private final RandomSubjectGeneratorClient randomSubjectGeneratorClient;
-    private final RandomPredicateGeneratorClient randomPredicateGeneratorClient;
-    private final RandomObjectGeneratorClient randomObjectGeneratorClient;
+    private final PredicateGenerator predicateGenerator;
+    private final ObjectGenerator objectGenerator;
+    private final SubjectGenerator subjectGenerator;
 
-    SentenceGenerator(RandomSubjectGeneratorClient randomSubjectGeneratorClient,
-                      RandomPredicateGeneratorClient randomPredicateGeneratorClient,
-                      RandomObjectGeneratorClient randomObjectGeneratorClient) {
-        this.randomSubjectGeneratorClient = randomSubjectGeneratorClient;
-        this.randomPredicateGeneratorClient = randomPredicateGeneratorClient;
-        this.randomObjectGeneratorClient = randomObjectGeneratorClient;
+    SentenceGenerator(SubjectGenerator subjectGenerator,
+                      PredicateGenerator predicateGenerator,
+                      ObjectGenerator objectGenerator) {
+        this.predicateGenerator = predicateGenerator;
+        this.objectGenerator = objectGenerator;
+        this.subjectGenerator = subjectGenerator;
     }
 
     String generateSentence() {
         return String.format("%s %s %s.",
-                randomSubjectGeneratorClient.getWord(),
-                randomPredicateGeneratorClient.getWord(),
-                randomObjectGeneratorClient.getWord());
+                subjectGenerator.generateSubject(),
+                predicateGenerator.generatePredicate(),
+                objectGenerator.generateObject());
     }
 }
