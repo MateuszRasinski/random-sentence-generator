@@ -1,9 +1,11 @@
 package com.github.mateuszrasinski.microservices.udemy.randomsentencegenerator;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/sentence")
+@RestController
+@RequestMapping("/sentence")
 class SentenceController {
 
     private final SentenceGenerator sentenceGenerator;
